@@ -1,10 +1,18 @@
-PORT = 443
+import json
+import os
+
+from dotenv import load_dotenv
+load_dotenv()
+
+PORT = os.getenv('PORT', 443)
 
 # name -> secret (32 hex chars)
-USERS = {
-    "tg":  "00000000000000000000000000000001",
-    # "tg2": "0123456789abcdef0123456789abcdef",
-}
+with open(os.getenv('CONFIG_JSON', '/etc/avaxvpn/mtproto/config.json')) as file:
+    config_data = json.load(file)
+
+USERS = config_data['USERS']
+
+USER_MAX_TCP_CONNS = config_data['USER_MAX_TCP_CONNS']
 
 MODES = {
     # Classic mode, easy to detect
@@ -21,7 +29,9 @@ MODES = {
 
 # The domain for TLS mode, bad clients are proxied there
 # Use random existing domain, proxy checks it on start
-# TLS_DOMAIN = "www.google.com"
+TLS_DOMAIN = os.getenv('TLS_DOMAIN', 'www.google.com')
 
 # Tag for advertising, obtainable from @MTProxybot
-# AD_TAG = "3c09c680b76ee91a4c25ad51f742267d"
+AD_TAG = os.getenv('AD_TAG', '')
+
+METRICS_PORT = 9909
