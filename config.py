@@ -1,8 +1,13 @@
 import json
 import os
+import sys
 
 from dotenv import load_dotenv
-load_dotenv()
+
+try:
+    load_dotenv(sys.argv[1])
+except IndexError:
+    load_dotenv()
 
 PORT = os.getenv('PORT', 443)
 

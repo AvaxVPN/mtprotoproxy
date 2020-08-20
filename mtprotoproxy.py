@@ -102,11 +102,8 @@ config = {}
 def init_config():
     global config
     # we use conf_dict to protect the original config from exceptions when reloading
-    if len(sys.argv) < 2:
+    if len(sys.argv) <= 2:
         conf_dict = runpy.run_module("config")
-    elif len(sys.argv) == 2:
-        # launch with own config
-        conf_dict = runpy.run_path(sys.argv[1])
     else:
         # undocumented way of launching
         conf_dict = {}
