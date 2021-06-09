@@ -9,6 +9,7 @@ try:
 except IndexError:
     load_dotenv()
 
+PREFER_IPV6 = False
 PORT = os.getenv('PORT', 443)
 
 # name -> secret (32 hex chars)
